@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset ="utf-8">
+  <title>干支時計</title>
+  <style>
+    body{
+      background-color:#fff;
+      font-size: 26px;
+      text-align: center;
+      font-family: Arial,sans-serif;
+    }
+    #eHour{
+      color: #feda4d;
+      font-size: 106px;
+      margin: 60px auto;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+  </style>
+</head>
+  <body>
+    <div id="eHour"></div>
+    <div id="time"></div>
+
+    <script>
+      'use strict'
+
+      var myDate,hour,i;
+      var result = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+
+      function myfunk(){
+        myDate = new Date();
+        hour = myDate.getHours();
+
+        if(hour%2 == 0){  //時（hour)が偶数の場合
+          document.getElementById("eHour").style.color = '#cc7eb1';
+          document.getElementById("eHour").innerHTML = result[hour/2];
+        }else{  //奇数の場合
+          document.getElementById("eHour").style.color = '#89c3eb';
+          document.getElementById("eHour").innerHTML = result[(hour-1)/2];
+        }
+        //分と秒
+        i = myDate.getMinutes()+"分";
+        i += myDate.getSeconds()+"秒";
+
+        document.getElementById("time").innerHTML = i;
+      }
+
+      setInterval("myfunk()",1000);//１秒ごとに読み取り
+
+    </script>
+  </body>
+  </html>

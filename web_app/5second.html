@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset ="utf-8">
+  <title>5秒当てゲーム</title>
+  <style>
+  body{
+    background: #fff;
+    text-align: center;
+    font-size: 16px;
+    font-family: Arial,sans-serif;
+  }
+
+  #result{
+    font-weight: bold;
+    font-size: 50px;
+    margin: 60px auto;
+    color: #3d55ab;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  #btn{
+    margin:0 auto;
+    width: 200px;
+    padding: 7px;
+    color: #fff;
+    border-radius: 5px;
+    background: #feda4d;
+    box-shadow: 0 4px 0 #ffb048;
+    cursor: pointer;
+  }
+  #btn:hover{
+    opacity: 0.8;
+  }
+  </style>
+</head>
+  <body>
+    <div id="result"></div>
+    <div id="btn">START</div>
+    <script>
+    (function(){
+      'use strict';
+      var isStarted = false;
+      var startTime;
+      var diff;
+      var msg ='すとっぷ ５秒<br>STARTでチャレンジ!!';
+
+      var result = document.getElementById('result');
+      var btn = document.getElementById('btn');
+
+      result.innerHTML = msg;
+
+      btn.addEventListener('click',function(){
+
+        if(!isStarted){
+          isStarted = true;
+          btn.innerHTML = 'STOP';
+          startTime = Date.now();
+          result.innerHTML = '考えちゅー<br>ここだ！ってところでSTOP押してね!';
+
+        }else{
+          isStarted = false;
+          btn.innerHTML = 'START';
+          diff = (Date.now()-startTime)/1000 - 5;
+          //console.log (diff);
+          if(diff >= 0.1 && diff <= 0.1){
+            result.innerHTML = 'ぴったり賞だよ！すごいすごーい!!<br>STARTでもう一回やっちゃう?';
+          }else if(diff > 0){
+            result.innerHTML = 'うーんとね、'+diff.toFixed(2)+'秒だけ遅いかなっ<br>STARTで再チャレンジ!!';
+          }else{
+            result.innerHTML = 'うーんとね、'+Math.abs(diff).toFixed(2)+'秒だけ速いかなっ<br>STARTで再チャレンジ!!';
+          }
+        }
+      });
+
+    }())
+    </script>
+  </body>
+  </html>

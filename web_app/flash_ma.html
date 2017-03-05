@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset ="utf-8">
+  <title>フラッシュ暗算</title>
+  <style>
+  body{
+    background: #fff;
+    text-align: center;
+    font-family: Arial,sans-serif;
+  }
+  #num{
+    color: #83c7ff;
+    font-size: 76px;
+    margin: 60px auto;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+  .btn{
+    display: inline-block;
+    width: 110px;
+    padding: 7px;
+    border-radius: 5px;
+    box-shadow: 0 4px 0 #83c7ff;
+    color: #ff96c0;
+    font-weight: bold;
+    font-size: 20px;
+    background: #abf5ff;
+    cursor: pointer;
+  }
+  .btn.active{
+    opacity: 1.0;
+  }
+  .btn.inactive{
+    opacity: 0.5;
+  }
+  </style>
+</head>
+  <body>
+    <div id = "num">ボタンを押して<br>１秒後に始まります</div>
+    <div id ="start">スタート</div>
+    <script>
+    (function(){
+      'use strict';
+
+      var updatenumText;
+      var numId;
+      var count = 1;
+      var total =0;
+      var answer　=0;
+
+      var startButton = document.getElementById('start');
+      var numText = document.getElementById('num');
+
+      function setButtonState(start){
+        startButton.className =start ? 'btn active':'btn inactive';
+      }
+
+      setButtonState(true);
+
+      startButton.addEventListener('click',function(){
+        if(answer === 0){
+          answer = 5;
+          startButton.innerHTML = "解答";
+          setButtonState(false);
+          updatenumText();
+      }else if (answer === 1){
+          numText.innerHTML = "正解は"+total+"でした";
+          startButton.innerHTML = "再チャレンジ";
+          answer = 0;
+          count = 1;
+          total = 0;
+        }
+      });
+
+      function updatenumText(){
+        if (count%2 === 1) {
+          numId = setTimeout(function(){
+            count++;
+            var i = Math.ceil(Math.random()*5+5);
+            total+=i;
+            numText.innerHTML = i;
+            //console.log(i);
+            updatenumText();
+          },1000);
+        }else{
+          numId = setTimeout(function(){
+            count++;
+            var i = Math.ceil(Math.random()*5);
+            total+=i;
+            numText.innerHTML = i;
+            //console.log(i);
+            updatenumText();
+          },1000);
+        }
+
+        if (count >10){
+          answer =1;
+          clearTimeout(numId);
+          setButtonState(true);
+          numText.innerHTML = "お疲れ様です<br>解答ボタンで答え合わせ";
+        }
+      }
+
+    }())
+    </script>
+  </body>
+  </html>

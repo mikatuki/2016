@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset ="utf-8">
+  <title>２進数変換</title>
+  <style>
+  body{
+    background-color:#0b0b0b;
+    font-size: 16px;
+    text-align: center;
+    font-family: Arial,sans-serif;
+  }
+  h1{
+    font-size: 24px;
+    color: #fff;
+    margin: 25px auto;
+    font-family:monospace;
+  }
+  input[type="text"]{
+    padding: 7px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    border-color: #39dbcc;
+    width: 100px;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: right;
+  }
+  p{
+    color: #fff;
+  }
+  #btn{
+    margin: 30px auto;
+    width: 180px;
+    border-radius: 5px;
+    box-shadow: 0 4px 0 #007890;
+    background: #39dbcc;
+    color: #fff;
+    cursor: pointer;
+    padding: 7px;
+  }
+  #btn:hover{
+    opacity: 0.8;
+  }
+  </style>
+</head>
+  <body>
+    <h1>10進数から2進数変換</h1>
+    <p>数値 <input type="text"  id = "num" value="87"></p>
+    <div id="btn">変換</div>
+    <p id="result">ここに表示</p>
+
+    <script>
+    (function(){
+      'use strict';
+
+      var numForm = document.getElementById('num');
+      var btn = document.getElementById('btn');
+      var result = document.getElementById('result');
+      var ans="";
+
+      numForm.addEventListener('click',function(){
+        this.select();
+      });
+
+      btn.addEventListener('click',function(){
+        var num = numForm.value;
+
+        if (num.match(/^[1-9][0-9]*$/)) {
+          while (num>0) {
+            ans += String(num%2);
+            num = Math.floor(num/2);
+            }
+          result.innerHTML = '変換結果：'+ans.split("").reverse().join("");
+          ans = "";
+        }else{
+          result.innerHTML ='入力された値がおかしいわー(´･ω･｀)';
+        }
+      });
+
+    }())
+    </script>
+  </body>
+  </html>
